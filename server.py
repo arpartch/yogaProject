@@ -11,7 +11,7 @@ def hello():
 
 data={
       'athena': {'poses': ["cobra", "downdog"]}, 
-      'peter': {'poses': ["updog", "childspose"]},
+      'peter': {'poses': ["updog", "childspose", "impossible"]},
       'adam': {'poses': ["cobra", "updog"]},
       'ethan': {'poses': ["updog", "downdog"]}, 
           }
