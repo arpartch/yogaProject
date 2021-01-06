@@ -8,7 +8,7 @@ async function getData(url, setData) {
   setData(data);
 }
 function App() {
-  const url = "http://127.0.0.1:5000/users/athena";
+  const url = "http://127.0.0.1:5000/users/peter";
   const [data, setData] = useState();
   useEffect(() => {
     getData(url, setData);
@@ -22,7 +22,7 @@ function App() {
       <ul>
         {R.map(
           pose => (
-            <li>{R.prop("name", pose)}</li>
+            <li>{R.prop("name", pose)} {R.prop("image", pose)}</li>
           ),
           poses
         )}
