@@ -1,0 +1,26 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Oct 19 12:50:06 2020
+
+@author: athenapartch
+"""
+
+
+context= {"available poses": ["down dog","up dog","childs pose"]}
+
+#Get the avaible poses out of the dictionary using the key
+poses=context["available poses"]
+print(poses)
+#Find a function that counts the length of an array 
+print(len(poses))
+posecount=(len(poses))
+#Print the length of the array
+print("There are",posecount, "poses")
+
+#Add in photographed poses where photographed poses is an array using the same strings as available poses. There should be repeats.
+#Figure out how to count how many of each photographed poses there are
+#list out avialable poses with the count of photographed poses next to them (included some available poses that don't get photographed with a count of 0)
+#Recommend the next pose to do based on which one has been photogrpahed least or if there is a tie sort alphabetically and choose the first one
+
+

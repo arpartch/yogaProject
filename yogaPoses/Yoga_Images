@@ -1,0 +1,28 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Oct 25 16:22:45 2020
+
+@author: athenapartch
+"""
+import pygame
+from pygame.locals import *
+
+
+pygame.init()
+
+screen = pygame.display.set_mode((500, 500), 0, 32)
+
+downdog = pygame.image.load("downward_dog.jpg").convert()
+updog = pygame.image.load("up_dog.jpg").convert()
+childspose = pygame.image.load("childs_pose.jpg").convert()
+
+while True:
+    screen.blit(downdog, (0,0))
+    
+    screen.blit(updog, (10,10))
+    
+    screen.blit(childspose, (20,20))
+    
+    pygame.display.update()
+    
