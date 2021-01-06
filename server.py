@@ -9,12 +9,26 @@ def hello():
     return "Yoga"
 
 
-data={
-      'athena': {'poses': ["cobra", "downdog"]}, 
-      'peter': {'poses': ["updog", "childspose", "impossible"]},
-      'adam': {'poses': ["cobra", "updog"]},
-      'ethan': {'poses': ["updog", "downdog"]}, 
-          }
+data = {
+    "peter": {
+        "username": "Peter Stradinger",
+        "email": "peter.stradinger@logicmonitor.com",
+        "poses": [
+            {"name": "Downward Facing Dog"},
+            {"name": "Upward Facing Dog"},
+            {"name": "Shivasana"},
+        ]
+    },
+    "athena": {
+        "username": "Athena Partch",
+        "email": "athena.partch@logicmonitor.com",
+        "poses": [
+            {"name": "Downward Facing Dog"},
+            {"name": "Upward Facing Dog"},
+            {"name": "Puppy Pose"},
+        ]
+    }
+}
 
 
 
