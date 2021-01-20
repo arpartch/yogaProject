@@ -17,6 +17,12 @@ data = {
             {"name": "Downward Facing Dog", "image":"peter_downdog.jpg"},
             {"name": "Upward Facing Dog", "image":"peter_upwardDog.jpg"},
             {"name": "Shivasana", "image":"peter_shivasana.jpg"},
+            {"name": "Cobra", "image":"peter_shivasana.jpg"},
+            {"name": "Tree", "image":"peter_shivasana.jpg"},
+            {"name": "Mountain", "image":"peter_shivasana.jpg"},
+            {"name": "Crow", "image":"peter_shivasana.jpg"},
+            {"name": "Bow", "image":"peter_shivasana.jpg"},
+            {"name": "Eagle", "image":"peter_shivasana.jpg"},
         ]
         
     },
