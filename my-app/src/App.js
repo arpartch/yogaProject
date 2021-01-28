@@ -9,6 +9,7 @@ async function getData(url, setData) {
   setData(data);
 }
 function App() {
+  const baseUrl = "https://athena-peter-yoga-pose-project.s3-us-west-2.amazonaws.com";
   const url = "http://127.0.0.1:5000/users/peter";
   const [data, setData] = useState();
   useEffect(() => {
@@ -22,16 +23,19 @@ function App() {
     <Style>
       <ul>
         {R.map(
-          pose => (
+          pose => {
+            const src = `${baseUrl}/${R.prop("image", pose)}`
+            console.log(src)
+            return (
             <li>
               <p>
               {R.prop("name", pose)} 
               </p>
-              <p>
-              {R.prop("image", pose)}
-              </p>
-              </li>
-          ),
+              <div>
+              <img src={src} width='200px' height='350px'/>
+              </div>
+              </li>)
+          },
           poses
         )}
       </ul>
@@ -58,13 +62,14 @@ ul {list-style-type: none;
     flex-wrap: wrap;
   }
 li {outline: 5px solid green;
-    width: 250px; 
-    height: 70px;
     margin: 25px 25px 30px 30px;
     box-shadow: 8px 8px 5px #888888;
     p{text-align: center;
       margin: 0;}
   }
   
-
+img {
+  max-width:100%;
+  height:auto;
+}
 `
