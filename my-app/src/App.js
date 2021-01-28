@@ -10,6 +10,7 @@ async function getData(url, setData) {
 }
 function App() {
   const baseUrl = "https://athena-peter-yoga-pose-project.s3-us-west-2.amazonaws.com";
+  const [token, setToken] = useState('');
   const url = "http://127.0.0.1:5000/users/peter";
   const [data, setData] = useState();
   useEffect(() => {
@@ -19,8 +20,17 @@ function App() {
   if (!data) return null;
   const username = R.path(["username"], data);
   const poses = R.path(["poses"], data);
+  const filterPoses = token => R.filter(R.pipe(
+    R.prop("name"),
+     R.test(token)
+  )) 
+  const filteredPoses = filterPoses (new RegExp(token))(poses)
   return (
     <Style>
+      <label>
+        filter: 
+      </label>
+      <input type ="text" name="filter" onChange={e => setToken(e.target.value)} value={token}/>
       <ul>
         {R.map(
           pose => {
@@ -36,7 +46,7 @@ function App() {
               </div>
               </li>)
           },
-          poses
+          filteredPoses
         )}
       </ul>
     </Style>
