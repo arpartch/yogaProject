@@ -3,34 +3,41 @@ from functools import reduce;
 
 ######Map Function#####
 # Capitalize words
-names = ["peter", "athena", "alice", "bob"];
-names2 = list(map(str.upper, names))
-print(names2)
+def capitalize(name):
+    return name.capitalize()
+
+
+x = map(capitalize, names)
+print(list(x))
 
 #Max out at 350
-def sizeFunc(n):
-    return n<=350
-sizes = [200, 400, 350, 75, 1200];
-sizes2 = map(sizeFunc, sizes)
-print(list(sizes2))
+def max_out_350(size):
+    return size if size <= 350 else 350
+
+sizes = [200, 400, 350, 75, 1200]
+x = map(max_out_350, sizes)
+print(list(x))
 
 # percentage of 50?
-def percFunc(n):
-    return n*2
-percentages = [34, 33, 1, 0, 99, 123];
-percentages2 = map(percFunc, percentages)
-print(list(percentages2))
+def percentage(num):
+    return num/50
 
-#Max from array
-heartrates = [[80, 99], [120, 75], [115, 115]];
-map(max, heartrates)
-print (list(map(max, heartrates)))
+percentages = [34, 33, 1, 0, 99, 123]
+x = map(percentage, percentages)
+print(list(x))
+
+
+#Max from each pair
+def max_num(pair):
+    return max(pair)
+
+heartrates = [[80, 99], [120, 75], [115, 115]]
+x = map(max_num, heartrates)
+print(list(x))
+
 
 ## Have several things that you want to change into something else? Reduce it
 fullNames = [["stradinger", "peter"], ["partch", "athena"]]; // -> ["Peter Stradinger", "Athena Partch"]
-
-result = reduce(lambda item1, item2: item1 +item2)
-print(result)
 
 
 scores = [34, 33, 1, 0, 99, 123]; #48.33
@@ -43,23 +50,60 @@ R.map(startsWith("a"), names); # -> [false, true, true, bob]
 R.map(isGreaterThan300, sizes); # -> [false, true, true, false, true]
 R.map(isEven, percentages); # -> [true, false, false, false?, false, false] I'm not sure if 0 is even
 
+x = map(lambda a: a.startswith('a'), names)
+print(list(x))
+
+x = map(lambda a: a > 300, sizes)
+print(list(x))
+
+x = map(lambda a: a % 2 == 0, percentages)
+print(list(x))
+
+
 # Do something only if a predicate passes? Use a when
-const animals = [{ type: "dog" }, { type: "cat" }, { type: "snake" }, { type: "shark" }];
 # -> [true, true, false, false]
-const balance = [10, 0, -3, 4, 50]; # -> ["ok", "ok", "overdrawn", "ok", "ok"] if the balance dips below 0
+
+animals = [{ type: "dog" }, { type: "cat" }, { type: "snake" }, { type: "shark" }]
+
+x = map(lambda ani: ani[type] == 'dog' or ani[type] == 'cat', animals)
+print(list(x))
+
+# ->if the balance dips below 0
+ balance = [10, 0, -3, 4, 50] #["ok", "ok", "overdrawn", "ok", "ok"] 
+x = map(lambda y: 'ok' if y>0 else 'overdrawn', balance)
+print(list(x))
 
 #If a predicate passes, do something, if not something else? Use an ifThen
-const heights = [[4, 10], [5, 10], [5, 3], [6, 2]]; # ["reject", "ride", "reject", "ride"] height limit 5'5
-const configs = [{ type: "text" }, { type: "date" }, { type: "datetime" }, { type: "text" }]; #-> ["Text", "Default", "Default", "Text"] use default unless text
+
+heights = [[4, 10], [5, 10], [5, 3], [6, 2]] # ["reject", "ride", "reject", "ride"] height limit 5'5
+x = map(lambda y: 'ride' if y[0]*12 + y[1] >= 5.5*12 else 'reject', heights)
+print(list(x))
+
+configs = [{ type: "text" }, { type: "date" }, { type: "datetime" }, { type: "text" }]; #-> ["Text", "Default", "Default", "Text"] use default unless text
+x = x = map(lambda conf: 'Text' if conf[type] == 'text' else 'Default', configs)
+print(list(x))
 
 #Have branching cases where you're looking for the first predicate that passes? Do a cond
-const betterConfigs = [
+betterConfigs = [
   { type: "text" },
   { type: "date" },
   { type: "datetime" },
   { type: "text" },
   { type: "textarea" },
-]; // -> ["Text", "Date", "Date", "Text", "TextArea"] use default unless text
+]; # -> ["Text", "Date", "Date", "Text", "TextArea"] use default unless text
+
+def predicate(x):
+    if x[type] == 'text':
+        return 'Text'
+    elif x[type] == 'date' or x[type] == 'datetime':
+        return 'Date'
+    elif x[type] == 'textarea':
+        return 'TextArea'
+
+
+x = map(predicate, betterConfigs)
+print(list(x))
+
 
 #Want only part of a list that passes a predicate? use Filter (or reject)
 const evenBetterConfigs = [
@@ -79,9 +123,11 @@ const evenBetterConfigs = [
 # convertTypeToComponent, filterEnabled, sortByName, removeType
 # Need to see what's happening at a step in the pipe? Use tap
 # R.pipe(step1, R.tap(console.log), step2)(context) -> Tap will allow you to log out the result without interrupting the pipe
+
+
 # Too much complexity? Refactor to a function (or several)
 
-const context = {
+context = {
   cards: [
     { id: 1, pose: "downward facing dog" },
     { id: 2, pose: "upward facing dog" },
@@ -95,37 +141,37 @@ const context = {
 
 # this is an ugly spaghetti function.
 function formatCards(context) {
-  const configs = R.prop("configs", context);
-  const cards = R.map(config => {
-    const id = R.prop("id", config);
-    const card = { id };
-    const pose = R.prop("pose", config);
+   configs = R.prop("configs", context);
+   cards = R.map(config => {
+     id = R.prop("id", config);
+     card = { id };
+     pose = R.prop("pose", config);
     # format Label -> This should be refactored
-    const labelWords = R.split(" ", pose);
-    const capitalizedWords = R.map(word => {
-      const firstLetter = R.head(word);
-      const rest = R.tail(word);
-      const capFirstLetter = R.toUpper(firstLetter);
-      const capitalizedWord = R.concat(capFirstLetter, rest);
+     labelWords = R.split(" ", pose);
+     capitalizedWords = R.map(word => {
+       firstLetter = R.head(word);
+       rest = R.tail(word);
+       capFirstLetter = R.toUpper(firstLetter);
+       capitalizedWord = R.concat(capFirstLetter, rest);
       return capitalizedWord;
     }, labelWords);
-    const label = R.join(" ", capitalizedWords);
+     label = R.join(" ", capitalizedWords);
     # format image src -> this should also be refactored
-    const srcWords = R.split(" ", pose);
-    const capitalizedSrcTailWords = R.map(word => {
-      const firstLetter = R.head(word);
-      const rest = R.tail(word);
-      const capFirstLetter = R.toUpper(firstLetter);
-      const capitalizedWord = R.concat(capFirstLetter, rest);
+     srcWords = R.split(" ", pose);
+     capitalizedSrcTailWords = R.map(word => {
+       firstLetter = R.head(word);
+       rest = R.tail(word);
+       capFirstLetter = R.toUpper(firstLetter);
+       capitalizedWord = R.concat(capFirstLetter, rest);
       return capitalizedWord;
     }, R.tail(labelWords));
-    const srcHead = R.head(srcWords);
-    const srcWordsFormatted = R.prepend(srcHead, capitalizedSrcTailWords);
-    const srcName = R.join("", srcWordsFormatted);
-    const src = R.concat(srcName, ".jpg");
-    const cardWithLabel = R.assoc("label", label, card);
-    const cardWithSrc = R.assoc("src", src, cardWithLabel);
-    const fullCard = cardWithSrc;
+     srcHead = R.head(srcWords);
+     srcWordsFormatted = R.prepend(srcHead, capitalizedSrcTailWords);
+     srcName = R.join("", srcWordsFormatted);
+     src = R.concat(srcName, ".jpg");
+     cardWithLabel = R.assoc("label", label, card);
+     cardWithSrc = R.assoc("src", src, cardWithLabel);
+     fullCard = cardWithSrc;
     return fullCard;
   }, configs);
   return cards;
@@ -141,33 +187,56 @@ const cards = [
 # this is the first step of refactoring. Separating things out into functions
 # see how this same function is used twice?
 function capitalizeWords(words) {
-  const firstLetter = R.head(word);
-  const rest = R.tail(word);
-  const capFirstLetter = R.toUpper(firstLetter);
-  const capitalizedWord = R.concat(capFirstLetter, rest);
+   firstLetter = R.head(word);
+   rest = R.tail(word);
+   capFirstLetter = R.toUpper(firstLetter);
+   capitalizedWord = R.concat(capFirstLetter, rest);
   return capitalizedWord;
 }
 # now see if you can also refactor format label and format image src into their own functions
 function formatCards(context) {
-  const configs = R.prop("configs", context);
-  const cards = R.map(config => {
-    const id = R.prop("id", config);
-    const card = { id };
-    const pose = R.prop("pose", config);
-    // format Label -> This should be refactored
-    const labelWords = R.split(" ", pose);
-    const capitalizedWords = R.map(capitalizeWords, labelWords);
-    const label = R.join(" ", capitalizedWords);
-    // format image src -> this should also be refactored
-    const srcWords = R.split(" ", pose);
-    const capitalizedSrcTailWords = R.map(capitalizeWords, R.tail(labelWords));
-    const srcHead = R.head(srcWords);
-    const srcWordsFormatted = R.prepend(srcHead, capitalizedSrcTailWords);
-    const srcName = R.join("", srcWordsFormatted);
-    const src = R.concat(srcName, ".jpg");
-    const cardWithLabel = R.assoc("label", label, card);
-    const cardWithSrc = R.assoc("src", src, cardWithLabel);
-    const fullCard = cardWithSrc;
+   configs = R.prop("configs", context);
+   cards = R.map(config => {
+     id = R.prop("id", config);
+     card = { id };
+     pose = R.prop("pose", config);
+
+    
+    # format Label -> This should be refactored
+    labelWords = R.split(" ", pose);
+    capitalizedWords = R.map(capitalizeWords, labelWords);
+    label = R.join(" ", capitalizedWords);
+
+def format_label(x):
+    splitted = x.split(' ')
+    splitted = map(lambda y: y.capitalize(), splitted)
+    return ' '.join(list(splitted))
+
+
+
+    # format image src -> this should also be refactored
+    srcWords = R.split(" ", pose);
+    capitalizedSrcTailWords = R.map(capitalizeWords, R.tail(labelWords));
+    srcHead = R.head(srcWords);
+    srcWordsFormatted = R.prepend(srcHead, capitalizedSrcTailWords);
+    srcName = R.join("", srcWordsFormatted);
+    src = R.concat(srcName, ".jpg");
+    cardWithLabel = R.assoc("label", label, card);
+    cardWithSrc = R.assoc("src", src, cardWithLabel);
+    fullCard = cardWithSrc;
     return fullCard;
   }, configs);
   return cards;
+
+  def format_img_src(x):
+        splitted = x.split(' ')
+    splitted = map(lambda y: y.capitalize(), splitted)
+    return ' '.join(list(splitted))
+
+    def formater(x):
+        x['label'] = format_label(x['label'])
+    x['src'] = format_img_src(x['src'])
+    return x
+
+x = map(formater, cards)
+print(list(x))
