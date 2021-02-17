@@ -16,10 +16,10 @@ data = {
         "poses": [
             {"name": "Downward Facing Dog", "image":"Downward-pose.jpg"},
             {"name": "Upward Facing Dog", "image":"Upwarddog-pose.jpg"},
-            {"name": "Shivasana", "image":"Shivasana-Pose.jpg"},
+            {"name": "Shivasana", "image":"Shavasana-Pose.jpg"},
             {"name": "Cobra", "image":"Cobra-pose.jpg"},
             {"name": "Tree", "image":"Tree-pose.jpg"},
-            {"name": "Mountain", "image":"mountain-pose.jpg"},
+            {"name": "Mountain", "image":"Mountain-pose.jpg"},
             {"name": "Crow", "image":"Crow-pose.jpg"},
             {"name": "Bow", "image":"Bow-pose.jpg"},
             {"name": "Eagle", "image":"Eagle-pose.jpg"},
